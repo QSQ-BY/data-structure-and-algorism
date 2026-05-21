@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "C/C++: g++.exe 生成活动文件",
+      "command": "g++.exe",
+      "args": [
+        //"-fexec-charset=GBK",    // 告诉编译器：生成的exe文件使用GBK编码（匹配Windows控制台）
+        "-finput-charset=UTF-8", // 告诉编译器：我的源代码文件是UTF-8编码
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${workspaceFolder}/.build/${fileBasenameNoExtension}.exe" 
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "detail": "编译器: g++.exe"
+    }
+  ]
+}

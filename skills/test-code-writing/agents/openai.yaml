@@ -1,0 +1,3 @@
+display_name: /测试代码编写
+short_description: 按统一规范编写测试代码
+default_prompt: 使用/测试代码编写为当前算法或函数补充规整的测试代码
