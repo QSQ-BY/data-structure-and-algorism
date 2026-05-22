@@ -20,7 +20,7 @@ typedef struct queue{
 
 //顺序表数据结构的操作
 vector *create_vector(int size){
-    vector* v = (vector*)malloc(sizeof(vector));
+    vector* v = (vector*)malloc(sizeof(*v));
     v->data = (int*)malloc(sizeof(int)*size);
     v->size = size;
     v->count = 0;
