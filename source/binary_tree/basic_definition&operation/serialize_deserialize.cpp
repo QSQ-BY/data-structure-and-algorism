@@ -58,6 +58,8 @@ void clear(node* root){
 char buff[10000];
 int len = 0;
 
+
+//二叉树转广义表
 void __serialize(node* root){
     //类似于前序遍历
     if(root == nullptr) return;
@@ -93,14 +95,84 @@ void output(node* root ){
     return;
 }
 
+//广义表转二叉树
+/* 思路分析:
+要想恢复整个树，要先恢复左子树，再恢复右子树
+具有完全包含关系
+遇到左括号先把根节点压入到栈中，把根节点悬挂起来
+处理到逗号的时候，接下来就要处理右子树的部分
+接下来遇到右括号，栈顶元素出栈 */
+/* 1.遇到关键字->生成新的节点
+2.如果遇到左括号->把刚刚新生成的节点压入到栈中,标记设置成左子树
+3.遇到逗号->打上一个标记(标记当前处理的是左子树还是右子树),标记当前位置应该处理的是右子树
+4.遇到右括号->将栈顶元素出栈
+5.每次生成一个新的节点->根据标记设置栈顶元素的左右子树 */
+node* deserialize(char* buff, int n){
+    node** stack = (node**)malloc(sizeof(node*)*(n > 0 ? n : 1));
+    int top = -1;
+    int flag = 0;
+    node* root = nullptr;//用于记录我们最后一个被弹栈的节点（即根节点）是谁
+    node* p = nullptr;//永远指向最后一个生成的节点
+    int scode = 0;//状态码
+    for(int i = 0;i<n;i++){
+        switch(scode) {
+            case 0:{
+                //状态码0用于做状态分发
+                if(buff[i]>='0' and buff[i]<='9') scode=1;//根据关键字生成新的节点
+                else if(buff[i] == '(') scode = 2;//压栈
+                else if(buff[i] == ')') scode = 3;//弹栈
+                else if(buff[i] == ',') scode = 4;//更改左右括号标记（flag）
+                i--;//抵消循环的推进
 
+            }break;
+            case 1:{
+                int cur_number = 0;
+                while(buff[i]<='9' and buff[i]>='0'){
+                    cur_number = cur_number*10 + buff[i] - '0';
+                    i++;//推进到下一位
+                }
+                i--;//再把i回退一步，抵消外层循环的i++
+                p = get_new_node(cur_number);
+                if(root == nullptr) root = p;
+                if(top>=0 and flag == 0) stack[top]->lchild = p;
+                if(top>=0 and flag == 1) stack[top]->rchild = p;
+                scode = 0;//每次处理完任务之后都要重新分发任务
+            }break;
+            case 2:{
+                top++;
+                stack[top] = p;
+                flag = 0;
+                scode = 0;
+            }break;
+            case 3:{
+                root = stack[top];
+                top--;
+                scode = 0;
+            }break;
+            case 4:{
+                flag = 1;
+                scode = 0;
+            }break;
+        }
+    }
+    free(stack);
+    return root;
+}
+
+
+//测试代码
 void test01(){
     node* root = get_random_binary_tree(10);
     output(root);//输出树的相关信息
     serialize(root);
     printf("%s\n",buff);
 
+    node* new_root = deserialize(buff,len);
+    output(new_root);
+    clear(root);
+    clear(new_root);
 }
+
 int main(void){
     srand(time(0));
     test01();
