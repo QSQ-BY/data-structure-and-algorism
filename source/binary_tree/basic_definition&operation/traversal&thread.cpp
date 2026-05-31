@@ -129,10 +129,10 @@ void test01(){
     post_order(root);
     printf("\n");
     inorder_thread(root);
-    node* p = root;
-    while(p and p->left_tag == 0){
+    node* p = start;
+    /* while(p and p->left_tag == 0){
         p = p->left_child;
-    }
+    } */
     //直接使用循环结构找到整个中序遍历的起始节点，即最左边的节点
     while(p){
         printf("%d ",p->data);
