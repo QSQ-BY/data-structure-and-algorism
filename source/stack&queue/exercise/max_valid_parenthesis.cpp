@@ -31,6 +31,7 @@ public:
     int max_len(vector<char> arr){
         vector<int> match(arr.size(),-1);
         vector<int> stack;
+        //构建match数组，代表括号序列中的匹配关系，用下标数字表示
         for(int i=0;i<arr.size();i++){
             if(arr[i] == '(' or arr[i] == '[' or arr[i] == '{') {
                 stack.push_back(i);

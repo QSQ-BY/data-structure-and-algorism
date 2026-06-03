@@ -30,7 +30,8 @@ void bfs(node* root){
     node* queue[MAX_NODE+5];
     int head,tail;
     head = tail=0;
-    queue[tail++] = root;
+    queue[tail] = root;
+    tail++;
     while(head<tail){
         node* cur_node = queue[head];
         printf("\nnode:%d\n",cur_node->data);
