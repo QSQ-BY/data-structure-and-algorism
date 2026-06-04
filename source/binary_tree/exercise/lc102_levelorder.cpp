@@ -98,6 +98,73 @@ void deleteTree(TreeNode* root){
     delete root;
 }
 
+
+
+
+
+class Solution2{
+    public:
+    vector<vector<int>> level_order(TreeNode* root){
+        if(root == nullptr) return vector<vector<int>>();
+        vector<vector<int>> ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(q.empty()==0){
+            vector<int> temp;
+            int cnt = q.size();
+            for(int i = 0;i<cnt;i++){
+                TreeNode* node = q.front();
+                temp.push_back(node->val);
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+                q.pop();
+            }
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+
+    void dfs(TreeNode* root,int level,vector<vector<int>>& ans){
+        if(root == nullptr) return;
+        if(level == ans.size()) ans.push_back(vector<int>());//每次访问到边界层数的时候都新建一个空容器，否则访问会越界
+        ans[level].push_back(root->val);
+        if(root->left) dfs(root->left,level+1,ans);
+        if(root->right) dfs(root->right,level+1,ans);
+        return;
+    }
+
+    vector<vector<int>> level_order2(TreeNode* root){
+        if(root == nullptr) return vector<vector<int>>();
+        int level = 0;
+        vector<vector<int>> ans;
+        dfs(root,level,ans);
+        return ans;
+    }
+
+    /* vector<vector<int>> level_order(TreeNode* root){
+        if(root == nullptr) return vector<vector<int>>();
+        vector<vector<int>> ans;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(q.empty()==0){
+            vector<int> temp;
+            int cnt = q.size();
+            for(int i =0;i<cnt;i++){
+                TreeNode* node = q.front();
+                temp.push_back(node->val);
+                if(node->left) q.push(node->left);
+                if(node->right) q.push(node->right);
+                q.pop();
+            }
+            ans.push_back(temp);
+        }
+        return ans;
+    } */
+};
+
+
+
+
 void test01(){
     Solution s;
 

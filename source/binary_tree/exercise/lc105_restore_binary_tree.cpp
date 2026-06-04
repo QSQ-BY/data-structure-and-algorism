@@ -49,6 +49,44 @@ public:
     }
 };
 
+
+class Solution2{
+    public:
+    TreeNode* build_tree(vector<int> preorder,vector<int> inorder){
+        if(preorder.size()==0 or inorder.size()==0) return nullptr;
+        int pos = 0;
+        while(preorder[0]!=inorder[pos]) pos++;
+        int n = preorder.size();
+        TreeNode* root = new TreeNode(preorder[0]);
+        vector<int> pre_arr;
+        vector<int> in_arr;
+        for(int i =1;i<=pos;i++){
+            pre_arr.push_back(preorder[i]);
+        }
+        for(int i = 0;i<=pos-1;i++){
+            in_arr.push_back(inorder[i]);
+        }
+        root->left = build_tree(pre_arr,in_arr);
+        pre_arr.clear();
+        in_arr.clear();
+        for(int i = pos+1;i<n;i++){
+            pre_arr.push_back(preorder[i]);
+        }
+        for(int i = pos+1;i<n;i++){
+            in_arr.push_back(inorder[i]);
+        }
+        root->right = build_tree(pre_arr,in_arr);
+        return root;
+    }
+};
+
+
+
+
+
+
+
+
 string vectorToString(vector<int> arr){
     string s = "[";
     for(int i=0;i<(int)arr.size();i++){

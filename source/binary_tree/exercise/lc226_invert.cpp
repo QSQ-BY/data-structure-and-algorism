@@ -38,6 +38,17 @@ public:
     }
 };
 
+class Solution2{
+public:
+    TreeNode* invertTree2(TreeNode* root){
+        if(root==nullptr) return nullptr;
+        swap(root->left,root->right);
+        root->left = invertTree2(root->left);
+        root->right = invertTree2(root->right);
+        return root;
+    }
+};
+
 string treeToString(TreeNode* root){
     if(root == nullptr) return "#";
     return to_string(root->val) + "(" + treeToString(root->left) + "," + treeToString(root->right) + ")";

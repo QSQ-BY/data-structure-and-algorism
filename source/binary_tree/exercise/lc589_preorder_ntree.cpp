@@ -65,6 +65,43 @@ public:
     }
 };
 
+class Solution2{
+public:
+    vector<int> preorder(Node* root){
+        if(root == nullptr) return vector<int>();
+        vector<int> ans;
+        ans.push_back(root->val);
+        for(auto x:root->children){
+            vector<int> temp;
+            temp = preorder(x);
+            for(auto y:temp){
+                ans.push_back(y);
+            }
+        }
+        return ans;
+    }
+
+    void __preorder2(Node* root,vector<int>& ans){
+        if(root == nullptr) return;
+        ans.push_back(root->val);
+        for(auto x:root->children){
+            __preorder2(x,ans);
+        }
+        return;
+    }
+    vector<int> preorder2(Node* root){
+        if(root == nullptr) return vector<int>();
+        vector<int> ans;
+        __preorder2(root,ans);
+        return ans;
+    }
+};
+
+
+
+
+
+
 string vectorToString(vector<int> arr){
     string s = "[";
     for(int i=0;i<(int)arr.size();i++){
