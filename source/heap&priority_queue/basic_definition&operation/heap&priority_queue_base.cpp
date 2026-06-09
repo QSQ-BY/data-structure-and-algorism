@@ -102,6 +102,20 @@ void output(priority_queue* p){
     return;
 }
 
+//¶ÑÅÅĞò
+int* heap_sort(priority_queue* p){
+    if(p==nullptr) return nullptr;
+    if(p->data == nullptr or p->n==0) return nullptr;
+    int* q = p->data;
+    int n = p->n;
+    for(int i=n;i>1;i--){
+        swap(&q[1],&q[i]);
+        down_update(p->data,1,i-1);
+    }
+    return q;
+}
+
+
 void clearPQ(priority_queue*p){
     if(p==nullptr) return;
     free(p->__data);
