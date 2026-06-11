@@ -123,3 +123,89 @@ int main(void){
     system("pause");
     return 0;
 }
+
+
+
+
+/* #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#define ROOT 1
+#define FATHER(i) ((i)/(2))
+#define LEFT(i) ((2)*(i))
+#define RIGHT(i) ((i)*(2) + (1))
+#define cmp >
+void swap(int* a,int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void down_update(int* data,int pos,int n){
+    int index = pos;
+    while(LEFT(pos)<=n){
+        index = pos;
+        if(data[LEFT(pos)] cmp data[pos]) index = LEFT(pos);
+        if(RIGHT(pos) <= n and data[RIGHT(pos)] cmp data[index]) index = RIGHT(pos);
+        if(index == pos) break;
+        swap(&data[pos],&data[index]);
+        pos = index;
+    }
+    return;
+}
+void up_update(int* data,int pos){
+    while(pos>1){
+        if(data[pos] cmp data[FATHER(pos)]){
+            swap(&data[pos] , &data[FATHER(pos)]);
+        }else break;
+        pos = FATHER(pos);
+    }
+    return;
+}
+
+void heap_sort(int* data,int n){
+    for(int i = n;i>=1;i--){
+        swap(&data[i],&data[1]);
+        down_update(data,1,i-1);
+    }
+    return;
+}
+
+void normal_heap_build(int* data,int n){
+    for(int i = 0;i<n;i++){
+        up_update(data,i+1);
+    }
+    return;
+}
+
+void linear_heap_build(int* data,int n){
+    for(int i =n/2 ; i>=1;i--){
+        down_update(data,i,n);
+    }
+    return;
+}
+
+void normal_heap(int* arr,int n){
+    int* data = arr-1;
+    normal_heap_build(data,n);
+    heap_sort(data,n);
+    return;
+}
+
+void linear_heap(int* arr,int n){
+    int* data = arr-1;
+    linear_heap_build(data,n);
+    heap_sort(data,n);
+    return;
+}
+void test01(){
+    return;
+}
+
+int main(void){
+    srand(time(0));
+    test01();
+    system("pause");
+    return 0;
+} */
