@@ -27,3 +27,48 @@ kthLargest.add(10); // ·µ»Ø 7
 kthLargest.add(9); // ·µ»Ø 7
 kthLargest.add(9); // ·µ»Ø 8
  */
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <set>
+
+using namespace std;
+class KthLargest {
+public:
+    typedef pair<int,int> PII;
+    int tot = 0;
+    set<PII> s;
+    int k = 0;
+    KthLargest(int k, vector<int>& nums) {
+        this->k = k;
+        for(auto x:nums){
+            add(x);
+        }
+        return ;
+    }
+    
+    int add(int val) {
+        if(s.size()<k){
+            s.insert(PII(val,tot++));
+        }else{
+            if(s.begin()->first < val){
+                s.insert(PII(val,tot++));
+            }
+        }
+        if(s.size()>k){
+            s.erase(s.begin());
+        }
+        return s.begin()->first;
+    } 
+};
+
+void test01(){
+
+}
+
+int main(void){
+    test01();
+    system("pause");
+    return 0;
+}
