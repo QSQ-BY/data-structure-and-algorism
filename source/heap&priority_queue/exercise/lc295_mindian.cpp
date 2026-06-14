@@ -70,6 +70,49 @@ public:
     }
 };
 
+
+class MedianFinder2{
+public:
+    typedef pair<int,int> PII;
+    set<PII> s1;
+    set<PII> s2;
+    int tot = 0;
+    MedianFinder2(){
+        tot = 0;
+    }
+    void addNum(int num){
+        if(s1.size() == 0 or -s1.begin()->first > num){
+            s1.insert(PII(-num,tot++));
+        }else{
+            s2.insert(PII(num,tot++));
+        }
+
+        int n1 = (s1.size()+s2.size()+1)/2;
+        if(n1==s1.size()) return;
+        if(s1.size()>n1){
+            //实际数量比理论数量大，就要给一个元素到s2
+            PII temp = PII(-s1.begin()->first,tot++);
+            s2.insert(temp);
+            s1.erase(s1.begin());
+        }else if(s1.size()<n1){
+            //实际数量比理论数量下，s2要给一个元素到s1
+            PII temp = PII(-s2.begin()->first,tot++);
+            s1.insert(temp);
+            s2.erase(s2.begin());
+        }
+        return;
+    }
+
+    double findMedian(){
+        int n = s1.size()+s2.size();
+        if(n%2 == 0){
+            return ((-s1.begin()->first)+(s2.begin()->first))/2.0;
+        }else if(n%2 == 1){
+            return -s1.begin()->first;
+        }
+        return 0.0;
+    }
+};
 void test01(){
 }
 

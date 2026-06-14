@@ -63,6 +63,36 @@ public:
     } 
 };
 
+
+class KthLargest2{
+public:
+    typedef pair<int,int> PII;
+    set<PII> s;
+    int tot = 0;
+    int k =0;
+    KthLargest2(int k,vector<int>& nums){
+        this->k = k;
+        for(auto x:nums){
+            add(x);
+        }
+        return;
+    }
+
+    int add(int val){
+        if(s.size()<k){
+            s.insert(PII(val,tot++));
+        }else{
+            if(s.begin()->first<val){
+                s.insert(PII(val,tot++));
+            }
+        }
+        if(s.size()>k){
+            s.erase(s.begin());
+        }
+        return s.begin()->first;
+    }
+};
+
 void test01(){
 
 }
